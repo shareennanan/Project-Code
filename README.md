@@ -1,7 +1,7 @@
 Project Code
 
 CutFEM implementation for a 1D curve embedded on the surface of a 3D heart mesh.
-Code provided covers the formulation for any major codimension and geometry changes.
+Code provided covers the progressio from codim-0 to codim-2, accounting for any major codimension and geometry changes.
 
 Codimension-0:
 [Snippet1](standalone_1D_convection.py) is the (only) standalone implementation of FEM to solve convection-diffusion in 1D.
