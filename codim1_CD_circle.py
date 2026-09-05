@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 order = 1                       #P1 FE space
 kmode = 2                     # Fourier mode of the manufactured soln
 alpha = 0.1                    #Diffusion coefficient
-maxhs=[0.025,0.05].      
+maxhs=[0.025,0.05]      
 s={}
 
 
@@ -39,7 +39,7 @@ for maxh in maxhs:
     Pt = lambda g: g - (g * n) * n              # tangential part of a gradient
     Qn = lambda g: (g * n) * n                  # normal part (for the stabilisation)
     dG = dCut(lset_approximated, IF, definedonelements=els)  # integrate along the circle
-    w = CF((y, -x)).    #convection field
+    w = CF((y, -x))    #convection field
     
     # -- bilinear form:        
     m = RestrictedBilinearForm(V, element_restriction=els, check_unused=False)
