@@ -86,18 +86,9 @@ els = mlci.GetElementsWithContribution(line)      # elements Gamma passes throug
 def Normalized(v):
     return 1.0 / Norm(v) * v
 
+#Recovering grad of the levelsets
+#GRAM-SCHMIDT to get an orthonormal basis
 
-# The normal space of a codim-2 curve is 2-DIMENSIONAL, spanned by the two
-# level-set gradients.  Two things matter here:
-#
-#  * use grad of the P1-INTERPOLATED level sets, not the analytic gradients:
-#    these are the normals of the discrete curve Gamma_h we actually integrate
-#    over.  Analytic normals are inconsistent with Gamma_h 
-#
-#  * GRAM-SCHMIDT them.  grad(phi_1) and grad(phi_2) are linearly independent on
-#    Gamma but in general NOT orthogonal.  They happen to be orthogonal for the
-#    line (phi = (x, y)) -- there the second line below is a no-op -- but they are
-#    NOT for the corkscrew, and P/Q are only projections if (e1, e2) is orthonormal.
 g1, g2 = grad(lsets_p1[0]), grad(lsets_p1[1])
 e1 = Normalized(g1)
 e2 = Normalized(g2 - (g2 * e1) * e1)
@@ -123,10 +114,6 @@ if periodic:
 else:
     V = H1(mesh, order=order, dgjumps = True)
 
-# THE ACTIVE-DOF RESTRICTION.  Only dofs belonging to elements that Gamma passes
-# through are "live"; every other dof is untouched by all integrators, so the
-# matrix is singular there.  Restricting the solve to `freedofs` is what makes the
-# method well posed. 
 freedofs = GetDofsOfElements(V, els) & V.FreeDofs()
 u, v = V.TnT()
 h = specialcf.mesh_size
@@ -154,8 +141,7 @@ else:
     
  
 # ============================== bilinear form ================================
-# The restricted BilinearForm essentially is a bilinear form only evaluating all
-# (bi) linearform integrators over the given elements (or facets -- but not salient in this case)
+
 
 
 m = RestrictedBilinearForm(V, element_restriction=els, check_unused=False)
