@@ -110,12 +110,6 @@ for maxh in meshsize:
     mlci = MultiLevelsetCutInfo(mesh, lsets_p1)
     els = mlci.GetElementsWithContribution(line)      # elements Gamma passes through
     
-    # Sanity check: the LENGTH of Gamma.
-    #   line:      1.0                       (the z-axis in a unit-height cylinder)
-    #   corkscrew: n_turns * 2*pi * lam      (~20.30 for c_pitch=0.4, n_turns=3)
-    length = Integrate(CoefficientFunction(1) * dCut(lsets_p1, line, order=3), mesh=mesh)
-    print(f"geometry = {geometry!r}:  length(Gamma) = {length:.4f},  "
-          f"cut elements = {sum(1 for e in els if e)}")
     
     
     # ============================ normals / projections ==========================
