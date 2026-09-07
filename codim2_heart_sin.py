@@ -134,8 +134,7 @@ def Q(v):        # normal projection: onto the 2D normal space
 
 
 # ============================== bilinear form ================================
-# The restricted BilinearForm essentially is a bilinear form only evaluating all
-# (bi) linearform integrators over the given elements (or facets -- but not salient in this case)
+
 
 #point on Gamma, start point of Gaussian pulse
 xc=28.3029
@@ -160,10 +159,6 @@ a += InnerProduct(w, P(Grad(u))) * v * dGamma
 a += gamma_n * h * InnerProduct(Q(Grad(u)), Q(Grad(v))) * dx(definedonelements=els)
 #a += 0.05 / h**2 * (u - u.Other()) * (v - v.Other()) * dw
 a.Assemble()
-
-# -- geometric stabilisation: normal-gradient.
-# NOTE `definedonelements=els`: this is a VOLUME (dx) integral, so without the
-# restriction it would be assembled over the entire background cylinder.
 
 
 
