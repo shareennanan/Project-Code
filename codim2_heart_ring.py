@@ -103,8 +103,6 @@ def Q(v):        # normal projection: onto the 2D normal space
 
 
 # ============================== discrete space ===============================
-# dgjumps=True is NOT set: it is only needed for a ghost penalty (u.Other()), and
-# this method uses the normal-gradient stabilisation alone.
 
 alpha = 0.1
 
@@ -155,9 +153,8 @@ a += gamma_n * h * InnerProduct(Q(Grad(u)), Q(Grad(v))) * dx(definedonelements=e
 
 a.Assemble()
 
-# -- geometric stabilisation: normal-gradient.
-# NOTE `definedonelements=els`: this is a VOLUME (dx) integral, so without the
-# restriction it would be assembled over the entire background cylinder.
+# -- geometric stabilisation: normal-gradient restricted to active elements
+
 
 
 
